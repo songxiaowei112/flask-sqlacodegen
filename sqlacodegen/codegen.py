@@ -652,7 +652,7 @@ class CodeGenerator(object):
 
         # Render the model tables and classes
         for model in self.models:
-            print('\n\n' + model.render().rstrip('\n'), file=outfile)
+            print(re.sub(r"\\u([a-f0-9]{4})", lambda mg: unichr(int(mg.group(1), 16)), '\n\n' + model.render().rstrip('\n')), file=outfile)
 
         if self.footer:
             print(self.footer, file=outfile)
